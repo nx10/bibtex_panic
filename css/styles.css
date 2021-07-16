@@ -1,0 +1,8 @@
+/*#bibinput { 
+    font-family: Consolas, Lucida Console, monospace; 
+}*/
+
+#error-entry::after {
+    content: "\a";
+    white-space: pre;
+}
