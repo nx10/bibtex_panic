@@ -2,7 +2,16 @@
     font-family: Consolas, Lucida Console, monospace; 
 }*/
 
-#error-entry::after {
+.error-entry {
+    font-family: Consolas, Lucida Console, monospace; 
+    cursor: pointer;
+}
+
+/*.error-entry::after {
     content: "\a";
     white-space: pre;
+}*/
+
+.styled-background {
+    background-color: aqua;
 }

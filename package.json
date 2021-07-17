@@ -1,0 +1,25 @@
+{
+  "name": "bibtex_panic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nx10/bibtex_panic.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nx10/bibtex_panic/issues"
+  },
+  "homepage": "https://github.com/nx10/bibtex_panic#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/codemirror": "^5.60.2",
+    "typescript": "^4.3.5"
+  }
+}
