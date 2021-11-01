@@ -1,4 +1,13 @@
 
+function indexesOf(str: string, c: string) {
+    const indices: number[] = [];
+    for (let i = 0; i < str.length; ++i) {
+        if (str[i] === c) indices.push(i);
+    }
+    return indices;
+}
+
+
 const ESCAPE_SYMBOLS = {
     '\u00F6': '\"{o}',
     '\u00E4': '\"{ä}',
@@ -16,7 +25,25 @@ interface BibError {
     text: string,
 }
 
+
+function findTextPos(lineBreaks: number[], index: number): TextPos {
+    let i = 0;
+    for (; index >= lineBreaks[i]; ++i) { }
+    return { 
+        line: i,
+        char: index - (i > 0 ? lineBreaks[i-1]+1 : 0)
+    };
+}
+
 function check(bibtex: string): BibError[] {
+
+    const bibtex_breaks = indexesOf(bibtex, "\n");
+
+    const line_lengths = bibtex_breaks.slice();
+    for (let i = 1; i < line_lengths.length; ++i) {
+        line_lengths[i] -= bibtex_breaks[i-1];
+    }
+
 
     const errors: BibError[] = [];
 
@@ -46,9 +73,19 @@ function check(bibtex: string): BibError[] {
                 end_index: { line: line_index, char: m.index+8 },
                 text: "Weird escape '" + m[0] + "'",
             })
-
         }
     });
+
+    const re = /@[a-zA-Z\s]+(\{\s*,)/gm;
+    let m: RegExpExecArray | null;
+    while (m = re.exec(bibtex)) {
+        const p = findTextPos(bibtex_breaks, m.index);
+        errors.push({
+            index: p,
+            end_index: { line: p.line, char: line_lengths[p.line] },
+            text: "Empty ID",
+        })
+    }
 
     return errors;
 
