@@ -60,6 +60,16 @@ function check(bibtex) {
             text: "Empty ID",
         });
     }
+    const re2 = /\\ast/gm;
+    let m2;
+    while (m2 = re2.exec(bibtex)) {
+        const p = findTextPos(bibtex_breaks, m2.index);
+        errors.push({
+            index: p,
+            end_index: { line: p.line, char: p.char + 4 },
+            text: "Illegal command",
+        });
+    }
     return errors;
 }
 // setup
